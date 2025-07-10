@@ -21,6 +21,29 @@ body {
 }
 
 /* =================================
+   MAIN WRAPPER
+   ================================= */
+.main-wrapper {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    height: 100vh; /* Ensure full viewport height */
+}
+
+/* Enhance touch scrolling for mobile */
+@media (max-width: 768px) {
+    .main-wrapper {
+        height: 100vh;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: none;
+    }
+}
+
+/* =================================
    UTILITY CLASSES
    ================================= */
 .container {
@@ -39,6 +62,28 @@ body {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     box-sizing: border-box;
+}
+
+/* Mobile responsive section behavior */
+@media (max-width: 768px) {
+    .section {
+        min-height: auto;
+        height: auto;
+        padding: 40px 0;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .section-content {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 30px 0;
+    }
 }
 
 .section-content {
@@ -139,6 +184,21 @@ body {
     position: relative;
     overflow: hidden;
     scroll-snap-align: start;
+}
+
+/* Hero section mobile responsiveness */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+        height: auto;
+        padding: 80px 20px 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 60px 15px 40px;
+    }
 }
 
 .hero-section::before {
@@ -1056,24 +1116,32 @@ body {
 }
 
 @media (max-width: 768px) {
+    .main-wrapper {
+        scroll-snap-type: none; /* Disable snap on mobile for better scrolling */
+    }
+
     .hero-decorations {
         display: none;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
     
     .hero-subtitle {
         font-size: 1.2rem;
+        margin-bottom: 1.5rem;
     }
     
     .section-title {
         font-size: 2rem;
+        margin-bottom: 1rem;
     }
     
     .section-text {
         font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .bridge-visual {
@@ -1122,21 +1190,43 @@ body {
     }
     
     .roles-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 500px;
+        margin: 0 auto;
     }
     
     .tips-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 500px;
+        margin: 0 auto;
     }
     
     .trends-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        justify-items: center;
     }
     
     .industry-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Improve content spacing and readability */
+    .container {
+        padding: 0 20px;
+    }
+
+    .section-content > * {
+        margin-bottom: 1.5rem;
+    }
+
+    .section-content > *:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -1212,4 +1302,127 @@ body {
 .section.in-view .section-content > *:nth-child(1) { transition-delay: 0.1s; }
 .section.in-view .section-content > *:nth-child(2) { transition-delay: 0.2s; }
 .section.in-view .section-content > *:nth-child(3) { transition-delay: 0.3s; }
-.section.in-view .section-content > *:nth-child(4) { transition-delay: 0.4s; } 
+.section.in-view .section-content > *:nth-child(4) { transition-delay: 0.4s; }
+
+/* =================================
+   QR CODE STYLES
+   ================================= */
+
+/* Interactive Poll QR Code */
+.form-qr {
+    width: 200px;
+    height: auto;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.qr-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.qr-link:hover {
+    transform: scale(1.05);
+}
+
+.qr-link:hover .form-qr {
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.qr-instruction {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+/* Website QR Code - Bottom Left Corner */
+.website-qr-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.website-qr-container:hover {
+    opacity: 1;
+}
+
+.website-qr-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.website-qr {
+    width: 80px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.website-qr-container:hover .website-qr {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.website-qr-label {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+}
+
+/* Mobile Responsive QR Codes */
+@media (max-width: 768px) {
+    .form-qr {
+        width: 150px;
+    }
+    
+    .website-qr-container {
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    .website-qr {
+        width: 60px;
+    }
+    
+    .website-qr-label {
+        font-size: 0.6rem;
+    }
+    
+    .qr-instruction {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-qr {
+        width: 120px;
+    }
+    
+    .website-qr-container {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .website-qr {
+        width: 50px;
+    }
+} 
